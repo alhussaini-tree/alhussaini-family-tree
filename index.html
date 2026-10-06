@@ -627,10 +627,9 @@
     const keep = ftRoot.value || 'mhn';
     ftRoot.innerHTML = '';
     people.forEach(function(p){
-      if(!childrenOf(p.id).length) return;
       const o = document.createElement('option'); o.value = p.id; o.textContent = plabel(p); ftRoot.appendChild(o);
     });
-    ftRoot.value = byId[keep] && childrenOf(keep).length ? keep : 'mhn';
+    ftRoot.value = byId[keep] ? keep : 'mhn';
   }
   function focusSingle(id){
     const p = byId[id]; if(!p) return;
