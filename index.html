@@ -47,6 +47,39 @@
   @keyframes markerPulse{0%,100%{box-shadow:0 0 0 6px rgba(255,212,0,.28),0 0 18px 7px rgba(255,180,0,.5);}50%{box-shadow:0 0 0 11px rgba(255,212,0,.16),0 0 30px 12px rgba(255,180,0,.35);}}
   .marker-pin .num{position:relative;background:linear-gradient(180deg,#ffe066,#f4c521);color:#3b2a08;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid #a97f1c;box-shadow:0 2px 6px rgba(0,0,0,.4);}
   .marker-pin .single-label{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:6px;background:linear-gradient(180deg,#ffe066,#f4c521);border:2px solid #a97f1c;color:#3b2a08;font-weight:700;font-size:13px;padding:5px 12px;border-radius:16px;box-shadow:0 3px 10px rgba(0,0,0,.4);white-space:nowrap;}
+  .pin-name{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:6px;background:rgba(255,224,102,.96);border:1.5px solid #a97f1c;color:#3b2a08;font-weight:700;font-size:12px;padding:2px 8px;border-radius:12px;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.4);}
+  .stage-banner{position:absolute;left:8px;right:8px;bottom:8px;background:rgba(30,20,10,.9);color:#ffe9a8;padding:8px 12px;border-radius:10px;font-size:13.5px;line-height:1.7;text-align:center;z-index:8;pointer-events:none;display:none;border:1px solid #a97f1c;}
+  .kin-panel label.kin-lbl{display:block;margin:8px 0 3px;font-size:13px;font-weight:700;color:var(--wood-dark);}
+  .kin-panel select,.kin-panel input[type=text]{width:100%;padding:9px 10px;border:1px solid #c9b183;border-radius:8px;background:#fff8e6;font-size:16px;font-family:inherit;color:var(--ink);}
+  .kin-row{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0;}
+  .kin-btn{background:linear-gradient(180deg,#f6dd7d,#dcb23c);border:1px solid #a97f1c;border-radius:20px;padding:8px 12px;font-size:13px;font-weight:700;color:#3b2a08;cursor:pointer;font-family:inherit;min-height:38px;}
+  .kin-btn.sec{background:#e9dfc4;border-color:#c9b183;font-weight:600;}
+  .kin-result{margin-top:8px;font-size:13.5px;line-height:1.9;}
+  .kin-card{background:#fff8e6;border:1px solid var(--paper-dark);border-radius:10px;padding:10px 12px;}
+  .kin-term{background:#f0d98a;border-radius:10px;padding:1px 8px;font-weight:800;color:#3b2a08;}
+  .kin-chips{display:flex;flex-wrap:wrap;gap:5px;margin:4px 0 8px;}
+  .kin-chip{background:#fff;border:1px solid #c9b183;border-radius:14px;padding:4px 10px;font-size:12.5px;cursor:pointer;font-family:inherit;color:var(--ink);}
+  .kin-chip.dead{background:#f1dfba;}
+  .kin-chip.nomap{opacity:.65;cursor:default;border-style:dashed;}
+  .kin-grp{margin:8px 0 2px;font-weight:700;color:var(--wood-dark);font-size:13px;}
+  .kin-extra-item{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;padding:3px 0;border-bottom:1px dashed #d8c79b;}
+  .kin-extra-item button{background:#c0504d;color:#fff;border:0;border-radius:10px;padding:2px 9px;cursor:pointer;}
+  .ftree,.ftree ul{list-style:none;margin:0;padding:0;}
+  .ftree ul{margin-right:16px;padding-right:16px;border-right:2px solid #b99a5e;}
+  .ftree li{position:relative;padding:4px 0;}
+  .ftree ul>li:before{content:"";position:absolute;right:-16px;top:19px;width:16px;border-top:2px solid #b99a5e;}
+  .fnode{display:inline-flex;align-items:center;gap:6px;border:2px solid #6f9a4f;background:#cfe8b5;border-radius:18px;padding:5px 12px;font-family:inherit;font-size:14px;font-weight:700;color:#2b2013;cursor:pointer;text-align:right;line-height:1.5;}
+  .fnode.dead{background:#e2b878;border-color:#a97f1c;}
+  .fnode.unv{border-style:dashed;}
+  .fnode.sel{box-shadow:0 0 0 3px #ff5b3a;}
+  .fnode .cnt{background:rgba(0,0,0,.12);border-radius:10px;padding:0 7px;font-size:12px;font-weight:700;}
+  .fnode .warn{font-size:12px;}
+  .ftree-legend{display:flex;flex-wrap:wrap;gap:10px;font-size:12.5px;margin:6px 0 10px;}
+  .ftree-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .ftree-legend i{width:14px;height:14px;border-radius:5px;display:inline-block;border:2px solid #6f9a4f;background:#cfe8b5;}
+  .ftree-legend i.d{background:#e2b878;border-color:#a97f1c;}
+  .ftree-legend i.u{border-style:dashed;}
+  .ftree-crumb{font-size:13px;margin:4px 0 8px;color:var(--wood-dark);}
   .hint{padding:8px 12px;font-size:11.5px;color:#a68e63;background:#1b140c;border-top:1px solid #3a2818;text-align:center;line-height:1.6;}
   .side{display:flex;flex-direction:column;gap:12px;max-height:88vh;overflow-y:auto;padding-left:2px;}
   @media (max-width:980px){.side{max-height:none;overflow-y:visible;}}
@@ -89,6 +122,8 @@
         <button id="zoomIn">+</button>
         <button id="resetView">إعادة ضبط</button>
         <button id="fitWidth">ملء العرض</button>
+        <button id="goMhn">🌳 فرع مهنا</button>
+        <button id="goKin">👪 القرابة</button>
       </div>
       <div class="toolbar-row">
         <select id="branchSelect">
@@ -103,11 +138,60 @@
         <canvas id="filterCanvas"></canvas>
       </div>
       <div class="markers-layer" id="markersLayer"></div>
+      <div class="stage-banner" id="stageBanner"></div>
     </div>
     <div class="hint">اسحب للتحريك • عجلة الفأرة أو أصابعك للتكبير • دائرة صفراء دقيقة تظهر فقط عند اختيار أحد الفروع السبعة الرئيسية أدناه • لبقية الأسماء استخدم التكبير والتصفح اليدوي داخل الصورة الأصلية عالية الدقة • «✕ إزالة» لمسح الدائرة</div>
   </div>
 
   <div class="side">
+
+    <div class="panel kin-panel" id="treePanel">
+      <h2>🌳 شجرة الفرع (واضحة ومبسّطة)</h2>
+      <label class="kin-lbl" for="ftRoot">اختر الجد لعرض شجرة فرعه:</label>
+      <select id="ftRoot"></select>
+      <div class="ftree-crumb" id="ftCrumb"></div>
+      <div class="ftree-legend">
+        <span><i></i> حيّ</span><span><i class="d"></i> متوفى (رحمه الله)</span><span><i class="u"></i> قراءة من الصورة تحتاج تأكيدك</span>
+      </div>
+      <div class="kin-row">
+        <button class="kin-btn" id="ftShowMap">📍 اعرض الفرع على الخريطة</button>
+      </div>
+      <div class="ftree" id="ftTree"></div>
+      <p class="note" style="margin-top:8px;">اضغط على أي اسم لتكبير الخريطة عليه. الأسماء بإطار منقّط ⚠ قرأتها من الصورة وتحتاج مراجعتك؛ إن وجدت خطأً أخبرني لأصحّحه.</p>
+    </div>
+
+    <div class="panel kin-panel" id="kinPanel">
+      <h2>صلة القرابة والنسل والأقارب</h2>
+      <p style="margin-top:0">اختر شخصين لمعرفة صلة القرابة بينهما، أو اختر شخصاً واحداً لعرض نسله وأجداده وأقاربه على الخريطة. البيانات المتاحة حالياً: الجد الجامع والفروع السبعة، وفرع الأمير سند ← مهنا وأبنائه الستة وأحفاده (قراءة من الصورة، بعضها يحتاج تأكيداً). ويمكنك إضافة أقاربك من الأسفل.</p>
+      <label class="kin-lbl" for="kinA">الشخص الأول</label>
+      <select id="kinA"></select>
+      <label class="kin-lbl" for="kinB">الشخص الثاني (لحساب الصلة)</label>
+      <select id="kinB"></select>
+      <div class="kin-row">
+        <button class="kin-btn" id="kinCalc">🔗 احسب الصلة</button>
+        <button class="kin-btn sec" id="kinDesc">🌱 نسل الأول</button>
+        <button class="kin-btn sec" id="kinAnc">⬆ أجداد الأول</button>
+        <button class="kin-btn sec" id="kinRel">👥 كل أقاربه</button>
+        <button class="kin-btn sec" id="kinTree">🌳 شجرة فرعه</button>
+        <button class="kin-btn sec" id="kinCopy">📋 نسخ الرابط</button>
+      </div>
+      <div class="kin-result" id="kinResult"></div>
+      <details style="margin-top:10px;">
+        <summary>➕ إضافة قريب (يُحفظ على جهازك فقط)</summary>
+        <label class="kin-lbl" for="kinNewName">الاسم</label>
+        <input type="text" id="kinNewName" placeholder="مثال: خالد">
+        <label class="kin-lbl" for="kinNewFather">اسم الأب</label>
+        <select id="kinNewFather"></select>
+        <label style="display:flex;gap:6px;align-items:center;margin:8px 0;font-size:13px;"><input type="checkbox" id="kinNewDead"> متوفى (رحمه الله)</label>
+        <div class="kin-row">
+          <button class="kin-btn" id="kinAdd">إضافة</button>
+          <button class="kin-btn sec" id="kinExport">تصدير القائمة</button>
+        </div>
+        <div id="kinExtraList"></div>
+        <textarea id="kinExportBox" style="display:none;width:100%;height:90px;margin-top:6px;font-size:12px;direction:ltr;" readonly></textarea>
+        <p class="note">الأشخاص المضافون لا تظهر لهم دائرة على الخريطة (لا يوجد لهم موقع)، لكنهم يدخلون في حساب القرابة. للاحتفاظ بهم نهائياً وإظهارهم على الخريطة أرسل القائمة المصدّرة للمشرف.</p>
+      </details>
+    </div>
 
     <div class="panel">
       <h2>الفروع السبعة الرئيسية</h2>
@@ -280,13 +364,10 @@
       ring.style.width = diameter+'px'; ring.style.height = diameter+'px';
       pin.appendChild(ring);
       if(currentMatches.length > 1){
-        const num = document.createElement('div');
-        num.className = 'num';
-        num.style.width = Math.max(16,diameter*0.55)+'px';
-        num.style.height = Math.max(16,diameter*0.55)+'px';
-        num.style.fontSize = Math.max(10,diameter*0.3)+'px';
-        num.textContent = (i+1);
-        pin.appendChild(num);
+        const nm = document.createElement('div');
+        nm.className = 'pin-name';
+        nm.textContent = m.name;
+        pin.appendChild(nm);
       } else {
         const lbl = document.createElement('div');
         lbl.className = 'single-label';
@@ -328,6 +409,7 @@
     centerOnPoint(fx, fy, 2.3);
     currentMatches = [{name:label, fx:fx, fy:fy}];
     focusedIndex = 0;
+    document.getElementById('stageBanner').style.display = 'none';
     apply();
     document.querySelectorAll('.branch-chip').forEach(function(c){
       c.classList.toggle('active-chip', c.textContent.trim()===label);
@@ -341,9 +423,348 @@
     document.querySelectorAll('.branch-chip').forEach(function(c){ c.classList.remove('active-chip'); });
     branchSelect.value = '';
     clearBtn.style.display = 'none';
+    document.getElementById('stageBanner').style.display = 'none';
     apply();
   }
-  clearBtn.addEventListener('click', clearAll);
+  clearBtn.addEventListener('click', function(){ clearAll(); banner.style.display='none'; });
+
+  // ================= صلة القرابة =================
+  const banner = document.getElementById('stageBanner');
+  const kinA = document.getElementById('kinA'), kinB = document.getElementById('kinB');
+  const kinFather = document.getElementById('kinNewFather');
+  const kinResult = document.getElementById('kinResult');
+
+  // كل شخص: id, name, father(id), dead, fx, fy (الموقع على الصورة إن وُجد)
+  const BASE_PEOPLE = [
+    {id:'root', name:'إبراهيم (الجد الجامع)', father:null, dead:true, fx:0.500, fy:0.813},
+    {id:'sul',  name:'سليمان',      father:'root', dead:true, fx:0.413, fy:0.768},
+    {id:'fah',  name:'فهد',         father:'root', dead:true, fx:0.420, fy:0.718},
+    {id:'sal',  name:'صالح',        father:'root', dead:true, fx:0.433, fy:0.668},
+    {id:'amm',  name:'الأمير محمد', father:'root', dead:true, fx:0.500, fy:0.646},
+    {id:'snd',  name:'الأمير سند',  father:'root', dead:true, fx:0.567, fy:0.668},
+    {id:'aaz',  name:'عبدالعزيز',   father:'root', dead:true, fx:0.579, fy:0.718},
+    {id:'abd',  name:'عبدالله',     father:'root', dead:true, fx:0.586, fy:0.768},
+    // ===== فرع مهنا (أبناؤه الستة أكّدهم صاحب الصفحة؛ وما تحتهم قراءة من الصورة، وunv = بحاجة لتأكيد) =====
+    {id:'mhn',  name:'مهنا',   father:'snd', dead:true,  fx:0.6827, fy:0.6623},
+    {id:'m_salih',  name:'صالح',    father:'mhn', dead:false, fx:0.7473, fy:0.6374},
+    {id:'m_khalid', name:'خالد',    father:'mhn', dead:false, fx:0.7059, fy:0.6572},
+    {id:'m_aziz',   name:'عبدالعزيز', father:'mhn', dead:false, fx:0.7120, fy:0.6805},
+    {id:'ib3',      name:'إبراهيم', father:'mhn', dead:false, fx:0.6853, fy:0.6791},
+    {id:'m_muhammad', name:'محمد',  father:'mhn', dead:false, fx:0.7244, fy:0.6393},
+    {id:'m_sind',   name:'سند',     father:'mhn', dead:true,  fx:0.7442, fy:0.6470},
+    // أبناء خالد
+    {id:'kh_abdullah', name:'عبدالله',  father:'m_khalid', dead:false, fx:0.7138, fy:0.6387},
+    {id:'kh_malik',    name:'عبدالملك', father:'m_khalid', dead:false, fx:0.6892, fy:0.6509},
+    {id:'kh_rahman',   name:'عبدالرحمن',father:'m_khalid', dead:false, fx:0.7180, fy:0.6534},
+    // أبناء إبراهيم (أكّدهم صاحب الصفحة)
+    {id:'muath', name:'معاذ',   father:'ib3', dead:false, fx:0.6719, fy:0.6696},
+    {id:'ammar', name:'عمار',   father:'ib3', dead:false, fx:0.6548, fy:0.6806},
+    {id:'nasser',name:'ناصر',   father:'ib3', dead:false, fx:0.6439, fy:0.6645},
+    // أبناء صالح (قراءة من الصورة — بحاجة لتأكيد)
+    {id:'s_thamer', name:'ثامر',     father:'m_salih', dead:false, fx:0.7657, fy:0.6359, unv:true},
+    {id:'s_aziz',   name:'عبدالعزيز',father:'m_salih', dead:false, fx:0.7598, fy:0.6486, unv:true},
+    {id:'s_muhammad',name:'محمد',    father:'m_salih', dead:false, fx:0.7864, fy:0.6387, unv:true},
+    {id:'sm_salih', name:'صالح',     father:'s_muhammad', dead:false, fx:0.8029, fy:0.6339, unv:true},
+    // أبناء عبدالعزيز (قراءة من الصورة — بحاجة لتأكيد)
+    {id:'az_mshari',  name:'مشاري',   father:'m_aziz', dead:false, fx:0.7033, fy:0.6882, unv:true},
+    {id:'az_fahd',    name:'فهد',     father:'m_aziz', dead:false, fx:0.7266, fy:0.6786, unv:true},
+    {id:'az_karim',   name:'عبدالكريم',father:'m_aziz', dead:false, fx:0.7505, fy:0.6753, unv:true},
+    {id:'az_abdullah',name:'عبدالله', father:'m_aziz', dead:false, fx:0.7310, fy:0.6928, unv:true}
+  ];
+  const LS_KEY = 'alhussaini_extra_people_v1';
+  function loadExtra(){ try{ const s = localStorage.getItem(LS_KEY); const a = s ? JSON.parse(s) : []; return Array.isArray(a) ? a : []; }catch(e){ return []; } }
+  function saveExtra(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(extraPeople)); }catch(e){} }
+  let extraPeople = loadExtra();
+  let people = [], byId = {};
+  function rebuild(){
+    people = []; byId = {};
+    BASE_PEOPLE.forEach(function(p){ people.push(p); byId[p.id] = p; });
+    extraPeople = extraPeople.filter(function(x){
+      if(!x || !x.id || !x.name || !x.father || !byId[x.father] || byId[x.id]) return false;
+      const p = {id:String(x.id), name:String(x.name), father:x.father, dead:!!x.dead, fx:null, fy:null};
+      people.push(p); byId[p.id] = p; return true;
+    });
+  }
+  function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function plabel(p){ const parts=[p.name]; let c=p, n=0; while(c.father && n<2){ c=byId[c.father]; if(!c) break; parts.push(c.name); n++; } return parts.join(' بن '); }
+  function slabel(p){ const f = p.father ? byId[p.father] : null; return f ? (p.name + ' بن ' + f.name) : p.name; }
+
+  function ancestors(id){ const out=[]; let c=byId[id]; while(c){ out.push(c.id); c = c.father ? byId[c.father] : null; } return out; }
+  function relate(aId, bId){
+    const A = ancestors(aId), B = ancestors(bId);
+    for(let i=0;i<A.length;i++){ const j = B.indexOf(A[i]); if(j>=0) return {dA:i, dB:j, lca:A[i], pathA:A.slice(0,i+1), pathB:B.slice(0,j+1)}; }
+    return null;
+  }
+  function ordw(n){ const o=['','الأول','الثاني','الثالث','الرابع','الخامس','السادس','السابع','الثامن','التاسع','العاشر']; return o[n] || String(n); }
+  // ماذا يكون (ب) بالنسبة إلى (أ)؟  dA: بُعد أ عن الجد المشترك، dB: بُعد ب عنه
+  function termFor(dA, dB){
+    if(dA===0 && dB===0) return 'نفس الشخص';
+    if(dB===0){ if(dA===1) return 'أب'; if(dA===2) return 'جد'; if(dA===3) return 'أبو الجد (جد الأب)'; return 'جد من الجيل ' + ordw(dA); }
+    if(dA===0){ if(dB===1) return 'ابن'; if(dB===2) return 'حفيد (ابن الابن)'; if(dB===3) return 'ابن حفيد'; return 'من أحفاده (الجيل ' + ordw(dB) + ')'; }
+    if(dA===1 && dB===1) return 'أخ';
+    if(dB===1){ if(dA===2) return 'عم'; if(dA===3) return 'عم الأب'; if(dA===4) return 'عم الجد'; return 'عم الجد الأعلى (الجيل ' + ordw(dA-1) + ')'; }
+    if(dA===1){ if(dB===2) return 'ابن أخ'; if(dB===3) return 'حفيد أخ (ابن ابن أخ)'; if(dB===4) return 'ابن حفيد أخ'; return 'من نسل أخ (الجيل ' + ordw(dB-1) + ')'; }
+    if(dA===dB){ if(dA===2) return 'ابن عم'; return 'ابن عم من الدرجة ' + ordw(dA-1); }
+    if(dA===2 && dB===3) return 'ابن ابن عم';
+    if(dA===3 && dB===2) return 'ابن عم الأب';
+    const m = Math.min(dA,dB)-1, diff = Math.abs(dA-dB);
+    return 'قريب من جهة الأب (ابن عم من الدرجة ' + ordw(m) + ' بفارق ' + diff + ' جيل ' + (dB>dA ? 'أدنى' : 'أعلى') + ')';
+  }
+
+  function fitAllMatches(list){
+    const sw = stage.clientWidth, sh = stage.clientHeight;
+    let fx0=1, fy0=1, fx1=0, fy1=0;
+    list.forEach(function(m){ fx0=Math.min(fx0,m.fx); fy0=Math.min(fy0,m.fy); fx1=Math.max(fx1,m.fx); fy1=Math.max(fy1,m.fy); });
+    const padF = 0.02;
+    fx0=Math.max(0,fx0-padF); fy0=Math.max(0,fy0-padF); fx1=Math.min(1,fx1+padF); fy1=Math.min(1,fy1+padF);
+    const zw = Math.max(0.03,(fx1-fx0))*img.naturalWidth, zh = Math.max(0.03,(fy1-fy0))*img.naturalHeight;
+    scale = Math.max(minScale, Math.min(maxScale, Math.min(sw/zw, sh/zh)*0.85));
+    const cx = (fx0+fx1)/2*img.naturalWidth, cy = (fy0+fy1)/2*img.naturalHeight;
+    originX = sw/2 - cx*scale; originY = sh/2 - cy*scale;
+  }
+  function showOnMap(ids){
+    const list = [];
+    ids.forEach(function(id){ const p = byId[id]; if(p && p.fx!=null) list.push({id:p.id, name:p.name, fx:p.fx, fy:p.fy}); });
+    currentMatches = list; focusedIndex = -1;
+    document.querySelectorAll('.branch-chip').forEach(function(c){ c.classList.remove('active-chip'); });
+    if(!list.length){ apply(); return 0; }
+    if(list.length===1){ centerOnPoint(list[0].fx, list[0].fy, 3.2); focusedIndex = 0; } else { fitAllMatches(list); }
+    apply(); clearBtn.style.display = 'inline-block';
+    return list.length;
+  }
+  function focusPerson(id){
+    const p = byId[id]; if(!p || p.fx==null) return;
+    let idx = -1;
+    currentMatches.forEach(function(m,i){ if(m.id===id) idx=i; });
+    if(idx<0){ currentMatches.push({id:p.id, name:p.name, fx:p.fx, fy:p.fy}); idx = currentMatches.length-1; }
+    focusedIndex = idx;
+    centerOnPoint(p.fx, p.fy, Math.max(scale, 3.2));
+    apply(); clearBtn.style.display = 'inline-block';
+    if(window.innerWidth <= 980) stage.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  function chip(id){
+    const p = byId[id];
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'kin-chip' + (p.dead ? ' dead' : '') + (p.fx==null ? ' nomap' : '');
+    b.textContent = slabel(p) + (p.dead ? ' (رحمه الله)' : '');
+    b.title = p.fx==null ? 'غير موجود على الخريطة' : 'اضغط للتكبير عليه';
+    b.addEventListener('click', function(){ focusPerson(id); });
+    return b;
+  }
+  function chipsBox(ids){ const d = document.createElement('div'); d.className = 'kin-chips'; ids.forEach(function(id){ d.appendChild(chip(id)); }); return d; }
+  function setBanner(html){ if(html){ banner.innerHTML = html; banner.style.display = 'block'; } else { banner.style.display = 'none'; } }
+  function afterShow(){ if(window.innerWidth <= 980) stage.scrollIntoView({behavior:'smooth', block:'start'}); }
+
+  function populateSelects(){
+    const keep = [kinA.value, kinB.value, kinFather.value];
+    [kinA, kinB, kinFather].forEach(function(sel, k){
+      sel.innerHTML = '';
+      const o0 = document.createElement('option'); o0.value=''; o0.textContent = k===2 ? '— اختر الأب —' : '— اختر —'; sel.appendChild(o0);
+      people.forEach(function(p){ const o = document.createElement('option'); o.value = p.id; o.textContent = plabel(p); sel.appendChild(o); });
+      if(keep[k] && byId[keep[k]]) sel.value = keep[k];
+    });
+    populateRoots(); renderFamilyTree();
+  }
+
+  // ===== شجرة الفرع المبسّطة =====
+  const ftRoot = document.getElementById('ftRoot'), ftTree = document.getElementById('ftTree'), ftCrumb = document.getElementById('ftCrumb');
+  function childrenOf(id){ return people.filter(function(p){ return p.father === id; }); }
+  function subtreeIds(id){ const out=[id]; childrenOf(id).forEach(function(c){ subtreeIds(c.id).forEach(function(x){ out.push(x); }); }); return out; }
+  function populateRoots(){
+    const keep = ftRoot.value || 'mhn';
+    ftRoot.innerHTML = '';
+    people.forEach(function(p){
+      if(!childrenOf(p.id).length) return;
+      const o = document.createElement('option'); o.value = p.id; o.textContent = plabel(p); ftRoot.appendChild(o);
+    });
+    ftRoot.value = byId[keep] && childrenOf(keep).length ? keep : 'mhn';
+  }
+  function focusSingle(id){
+    const p = byId[id]; if(!p) return;
+    if(p.fx != null){ showOnMap([id]); setBanner('<b>' + esc(plabel(p)) + '</b>' + (p.dead ? ' (رحمه الله)' : '')); afterShow(); }
+    else { setBanner('<b>' + esc(plabel(p)) + '</b><br><small>لا موقع له على الخريطة</small>'); }
+  }
+  function buildLi(p){
+    const li = document.createElement('li');
+    const ch = childrenOf(p.id);
+    const b = document.createElement('button'); b.type = 'button';
+    b.className = 'fnode' + (p.dead ? ' dead' : '') + (p.unv ? ' unv' : '');
+    b.dataset.id = p.id;
+    b.innerHTML = esc(p.name) + (p.dead ? ' <span class="warn">(رحمه الله)</span>' : '') + (p.unv ? ' <span class="warn">⚠</span>' : '') + (ch.length ? ' <span class="cnt">' + ch.length + '</span>' : '');
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.fnode.sel').forEach(function(x){ x.classList.remove('sel'); });
+      b.classList.add('sel'); focusSingle(p.id);
+    });
+    li.appendChild(b);
+    if(ch.length){ const ul = document.createElement('ul'); ch.forEach(function(c){ ul.appendChild(buildLi(c)); }); li.appendChild(ul); }
+    return li;
+  }
+  function renderFamilyTree(){
+    const rid = ftRoot.value || 'mhn'; const root = byId[rid];
+    ftTree.innerHTML = ''; if(!root) return;
+    const crumb = ancestors(rid).reverse().map(function(id){ return byId[id].name; }).join(' ← ');
+    const n = subtreeIds(rid).length;
+    ftCrumb.innerHTML = 'النسب: <b>' + esc(crumb) + '</b> — أفراد الفرع المسجّلون: <b>' + n + '</b>';
+    const ul = document.createElement('ul'); ul.className = 'ftree'; ul.appendChild(buildLi(root)); ftTree.appendChild(ul);
+  }
+  ftRoot.addEventListener('change', renderFamilyTree);
+  document.getElementById('ftShowMap').addEventListener('click', function(){
+    const rid = ftRoot.value || 'mhn'; const ids = subtreeIds(rid);
+    showOnMap(ids); setBanner('فرع <b>' + esc(byId[rid].name) + '</b>: ' + ids.length + ' شخص'); afterShow();
+  });
+  function renderExtraList(){
+    const box = document.getElementById('kinExtraList'); box.innerHTML = '';
+    extraPeople.forEach(function(x){
+      const row = document.createElement('div'); row.className = 'kin-extra-item';
+      const span = document.createElement('span'); span.textContent = x.name + ' بن ' + (byId[x.father] ? byId[x.father].name : '؟');
+      const del = document.createElement('button'); del.type='button'; del.textContent = '✕';
+      del.addEventListener('click', function(){
+        // احذف الشخص وكل من تحته من الإضافات
+        const rm = {}; rm[x.id] = true; let ch = true;
+        while(ch){ ch = false; extraPeople.forEach(function(y){ if(!rm[y.id] && rm[y.father]){ rm[y.id] = true; ch = true; } }); }
+        extraPeople = extraPeople.filter(function(y){ return !rm[y.id]; });
+        saveExtra(); rebuild(); populateSelects(); renderExtraList();
+      });
+      row.appendChild(span); row.appendChild(del); box.appendChild(row);
+    });
+  }
+
+  function calcRelation(){
+    const a = kinA.value, b = kinB.value;
+    if(!a || !b){ kinResult.innerHTML = '<div class="kin-card">اختر الشخصين أولاً.</div>'; return; }
+    const pa = byId[a], pb = byId[b];
+    if(a===b){ kinResult.innerHTML = '<div class="kin-card">هذا هو نفس الشخص.</div>'; return; }
+    const r = relate(a, b);
+    if(!r){ kinResult.innerHTML = '<div class="kin-card">لا يوجد جد مشترك مسجّل بين الشخصين في البيانات الحالية.</div>'; return; }
+    const t1 = termFor(r.dA, r.dB), t2 = termFor(r.dB, r.dA);
+    const lca = byId[r.lca];
+    const path = r.pathA.concat(r.pathB.slice(0,-1).reverse());
+    const card = document.createElement('div'); card.className = 'kin-card';
+    card.innerHTML = '<div><b>' + esc(plabel(pb)) + '</b> هو <span class="kin-term">' + esc(t1) + '</span> لـ <b>' + esc(plabel(pa)) + '</b></div>' +
+      '<div>وبالعكس: <b>' + esc(pa.name) + '</b> هو <span class="kin-term">' + esc(t2) + '</span> لـ <b>' + esc(pb.name) + '</b></div>' +
+      '<div>الجد المشترك: <b>' + esc(lca.name) + '</b> — ' + esc(pa.name) + ' يبعد عنه ' + r.dA + ' جيل، و' + esc(pb.name) + ' يبعد ' + r.dB + ' جيل.</div>' +
+      '<div class="kin-grp">مسار النسب:</div>';
+    card.appendChild(chipsBox(path));
+    kinResult.innerHTML = ''; kinResult.appendChild(card);
+    const n = showOnMap(path);
+    setBanner('<b>' + esc(pb.name) + '</b> هو <b>' + esc(t1) + '</b> لـ <b>' + esc(pa.name) + '</b>' + (n < path.length ? '<br><small>بعض أفراد المسار لا موقع لهم على الخريطة</small>' : ''));
+    try{ history.replaceState(null, '', '#a=' + encodeURIComponent(a) + '&b=' + encodeURIComponent(b)); }catch(e){}
+    afterShow();
+  }
+  function showDesc(){
+    const a = kinA.value;
+    if(!a){ kinResult.innerHTML = '<div class="kin-card">اختر الشخص الأول.</div>'; return; }
+    const gens = []; let level = [a]; let total = 0;
+    while(true){
+      const next = [];
+      level.forEach(function(id){ people.forEach(function(p){ if(p.father===id) next.push(p.id); }); });
+      if(!next.length) break;
+      gens.push(next); total += next.length; level = next;
+    }
+    const box = document.createElement('div'); box.className = 'kin-card';
+    box.innerHTML = '<div>نسل <b>' + esc(plabel(byId[a])) + '</b> المسجّل: <b>' + total + '</b> شخص.</div>';
+    if(!total){ box.innerHTML += '<div>لا يوجد نسل مسجّل له في البيانات الحالية.</div>'; }
+    const titles = ['الأبناء','الأحفاد','أبناء الأحفاد'];
+    gens.forEach(function(g, i){
+      const h = document.createElement('div'); h.className = 'kin-grp'; h.textContent = (titles[i] || ('الجيل ' + ordw(i+1))) + ' (' + g.length + ')'; box.appendChild(h);
+      box.appendChild(chipsBox(g));
+    });
+    kinResult.innerHTML = ''; kinResult.appendChild(box);
+    const ids = [a]; gens.forEach(function(g){ g.forEach(function(x){ ids.push(x); }); });
+    showOnMap(ids);
+    setBanner('نسل <b>' + esc(byId[a].name) + '</b>: ' + total + ' شخص');
+    afterShow();
+  }
+  function showAnc(){
+    const a = kinA.value;
+    if(!a){ kinResult.innerHTML = '<div class="kin-card">اختر الشخص الأول.</div>'; return; }
+    const A = ancestors(a);
+    const box = document.createElement('div'); box.className = 'kin-card';
+    box.innerHTML = '<div>سلسلة أجداد <b>' + esc(byId[a].name) + '</b> (من الأقرب إلى الأبعد):</div>';
+    box.appendChild(chipsBox(A.slice(1)));
+    if(A.length < 2) box.innerHTML += '<div>هو أعلى جد مسجّل.</div>';
+    kinResult.innerHTML = ''; kinResult.appendChild(box);
+    showOnMap(A);
+    setBanner('أجداد <b>' + esc(byId[a].name) + '</b>: ' + (A.length-1) + ' جيل');
+    afterShow();
+  }
+  function showRel(){
+    const a = kinA.value;
+    if(!a){ kinResult.innerHTML = '<div class="kin-card">اختر الشخص الأول.</div>'; return; }
+    const groups = {};
+    people.forEach(function(p){
+      if(p.id===a) return;
+      const r = relate(a, p.id); if(!r) return;
+      const t = termFor(r.dA, r.dB);
+      if(!groups[t]) groups[t] = {key:r.dA + r.dB, dA:r.dA, ids:[]};
+      groups[t].ids.push(p.id);
+    });
+    const keys = Object.keys(groups).sort(function(x,y){ return groups[x].key - groups[y].key || groups[x].dA - groups[y].dA; });
+    const box = document.createElement('div'); box.className = 'kin-card';
+    box.innerHTML = '<div>أقارب <b>' + esc(plabel(byId[a])) + '</b> المسجّلون، مرتّبون بحسب القرب:</div>';
+    const ids = [a];
+    keys.forEach(function(t){
+      const h = document.createElement('div'); h.className = 'kin-grp'; h.textContent = t + ' (' + groups[t].ids.length + ')'; box.appendChild(h);
+      box.appendChild(chipsBox(groups[t].ids));
+      groups[t].ids.forEach(function(x){ ids.push(x); });
+    });
+    if(!keys.length) box.innerHTML += '<div>لا يوجد أقارب مسجّلون.</div>';
+    kinResult.innerHTML = ''; kinResult.appendChild(box);
+    showOnMap(ids);
+    setBanner('أقارب <b>' + esc(byId[a].name) + '</b>: ' + (ids.length-1) + ' شخص');
+    afterShow();
+  }
+
+  document.getElementById('kinCalc').addEventListener('click', calcRelation);
+  document.getElementById('kinDesc').addEventListener('click', showDesc);
+  document.getElementById('kinAnc').addEventListener('click', showAnc);
+  document.getElementById('kinRel').addEventListener('click', showRel);
+  document.getElementById('kinCopy').addEventListener('click', function(){
+    const a = kinA.value, b = kinB.value;
+    let url = location.href.split('#')[0];
+    if(a && b) url += '#a=' + encodeURIComponent(a) + '&b=' + encodeURIComponent(b);
+    const done = function(){ kinResult.innerHTML = '<div class="kin-card">تم نسخ الرابط ✔</div>'; };
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done, function(){ window.prompt('انسخ الرابط:', url); }); }
+    else { window.prompt('انسخ الرابط:', url); }
+  });
+  document.getElementById('kinAdd').addEventListener('click', function(){
+    const name = document.getElementById('kinNewName').value.trim();
+    const father = kinFather.value;
+    if(!name || !father){ kinResult.innerHTML = '<div class="kin-card">اكتب الاسم واختر الأب.</div>'; return; }
+    extraPeople.push({id:'x' + Date.now().toString(36) + Math.floor(Math.random()*1000), name:name, father:father, dead:document.getElementById('kinNewDead').checked});
+    saveExtra(); rebuild(); populateSelects(); renderExtraList();
+    document.getElementById('kinNewName').value = '';
+    kinResult.innerHTML = '<div class="kin-card">تمت إضافة «' + esc(name) + '» ✔ — يمكنك اختياره الآن في القوائم.</div>';
+  });
+  document.getElementById('kinExport').addEventListener('click', function(){
+    const tb = document.getElementById('kinExportBox');
+    tb.value = JSON.stringify(extraPeople.map(function(x){ return {name:x.name, father:x.father, fatherName:(byId[x.father]||{}).name, dead:x.dead}; }), null, 1);
+    tb.style.display = 'block'; tb.focus(); tb.select();
+  });
+  document.getElementById('kinTree').addEventListener('click', function(){
+    const a = kinA.value;
+    if(!a){ kinResult.innerHTML = '<div class="kin-card">اختر الشخص الأول.</div>'; return; }
+    if(!childrenOf(a).length){ kinResult.innerHTML = '<div class="kin-card">لا يوجد له نسل مسجّل لعرض شجرة له.</div>'; return; }
+    ftRoot.value = a; renderFamilyTree();
+    document.getElementById('treePanel').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.getElementById('goMhn').addEventListener('click', function(){
+    ftRoot.value = 'mhn'; renderFamilyTree();
+    const ids = subtreeIds('mhn'); showOnMap(ids); setBanner('فرع <b>مهنا</b>: ' + ids.length + ' شخص');
+    document.getElementById('treePanel').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.getElementById('goKin').addEventListener('click', function(){ document.getElementById('kinPanel').scrollIntoView({behavior:'smooth', block:'start'}); });
+
+  rebuild(); populateSelects(); renderExtraList();
+  function runHash(){
+    try{
+      const q = new URLSearchParams(location.hash.replace(/^#/, ''));
+      const a = q.get('a'), b = q.get('b');
+      if(a && byId[a]){ kinA.value = a; if(b && byId[b]){ kinB.value = b; calcRelation(); } else { showDesc(); } }
+    }catch(e){}
+  }
+  if(img.complete && img.naturalWidth){ runHash(); } else { img.addEventListener('load', runHash); }
 
   stage.addEventListener('wheel', function(e){
     e.preventDefault();
@@ -513,4 +934,3 @@
 
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

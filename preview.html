@@ -162,7 +162,7 @@
 
     <div class="panel kin-panel" id="kinPanel">
       <h2>صلة القرابة والنسل والأقارب</h2>
-      <p style="margin-top:0">اختر شخصين لمعرفة صلة القرابة بينهما، أو اختر شخصاً واحداً لعرض نسله وأجداده وأقاربه على الخريطة. البيانات المتاحة حالياً: الجد الجامع والفروع السبعة، وفرع الأمير سند ← مهنا ← إبراهيم ← معاذ وعمار وناصر. ويمكنك إضافة أقاربك من الأسفل.</p>
+      <p style="margin-top:0">اختر شخصين لمعرفة صلة القرابة بينهما، أو اختر شخصاً واحداً لعرض نسله وأجداده وأقاربه على الخريطة. البيانات المتاحة حالياً: الجد الجامع والفروع السبعة، وفرع الأمير سند ← مهنا وأبنائه الستة وأحفاده (قراءة من الصورة، بعضها يحتاج تأكيداً). ويمكنك إضافة أقاربك من الأسفل.</p>
       <label class="kin-lbl" for="kinA">الشخص الأول</label>
       <select id="kinA"></select>
       <label class="kin-lbl" for="kinB">الشخص الثاني (لحساب الصلة)</label>
@@ -503,7 +503,7 @@
     if(dA===0){ if(dB===1) return 'ابن'; if(dB===2) return 'حفيد (ابن الابن)'; if(dB===3) return 'ابن حفيد'; return 'من أحفاده (الجيل ' + ordw(dB) + ')'; }
     if(dA===1 && dB===1) return 'أخ';
     if(dB===1){ if(dA===2) return 'عم'; if(dA===3) return 'عم الأب'; if(dA===4) return 'عم الجد'; return 'عم الجد الأعلى (الجيل ' + ordw(dA-1) + ')'; }
-    if(dA===1){ if(dB===2) return 'ابن أخ'; if(dB===3) return 'ابن ابن أخ'; return 'من نسل أخ (الجيل ' + ordw(dB-1) + ')'; }
+    if(dA===1){ if(dB===2) return 'ابن أخ'; if(dB===3) return 'حفيد أخ (ابن ابن أخ)'; if(dB===4) return 'ابن حفيد أخ'; return 'من نسل أخ (الجيل ' + ordw(dB-1) + ')'; }
     if(dA===dB){ if(dA===2) return 'ابن عم'; return 'ابن عم من الدرجة ' + ordw(dA-1); }
     if(dA===2 && dB===3) return 'ابن ابن عم';
     if(dA===3 && dB===2) return 'ابن عم الأب';
@@ -547,7 +547,7 @@
     const b = document.createElement('button');
     b.type = 'button';
     b.className = 'kin-chip' + (p.dead ? ' dead' : '') + (p.fx==null ? ' nomap' : '');
-    b.textContent = slabel(p) + (p.dead ? ' ﵀' : '');
+    b.textContent = slabel(p) + (p.dead ? ' (رحمه الله)' : '');
     b.title = p.fx==null ? 'غير موجود على الخريطة' : 'اضغط للتكبير عليه';
     b.addEventListener('click', function(){ focusPerson(id); });
     return b;
@@ -582,7 +582,7 @@
   }
   function focusSingle(id){
     const p = byId[id]; if(!p) return;
-    if(p.fx != null){ showOnMap([id]); setBanner('<b>' + esc(plabel(p)) + '</b>' + (p.dead ? ' ﵀' : '')); afterShow(); }
+    if(p.fx != null){ showOnMap([id]); setBanner('<b>' + esc(plabel(p)) + '</b>' + (p.dead ? ' (رحمه الله)' : '')); afterShow(); }
     else { setBanner('<b>' + esc(plabel(p)) + '</b><br><small>لا موقع له على الخريطة</small>'); }
   }
   function buildLi(p){
@@ -591,7 +591,7 @@
     const b = document.createElement('button'); b.type = 'button';
     b.className = 'fnode' + (p.dead ? ' dead' : '') + (p.unv ? ' unv' : '');
     b.dataset.id = p.id;
-    b.innerHTML = esc(p.name) + (p.dead ? ' ﵀' : '') + (p.unv ? ' <span class="warn">⚠</span>' : '') + (ch.length ? ' <span class="cnt">' + ch.length + '</span>' : '');
+    b.innerHTML = esc(p.name) + (p.dead ? ' <span class="warn">(رحمه الله)</span>' : '') + (p.unv ? ' <span class="warn">⚠</span>' : '') + (ch.length ? ' <span class="cnt">' + ch.length + '</span>' : '');
     b.addEventListener('click', function(){
       document.querySelectorAll('.fnode.sel').forEach(function(x){ x.classList.remove('sel'); });
       b.classList.add('sel'); focusSingle(p.id);
