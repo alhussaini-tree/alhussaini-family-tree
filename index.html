@@ -147,8 +147,10 @@
 
     <div class="panel kin-panel" id="treePanel">
       <h2>🌳 شجرة الفرع (واضحة ومبسّطة)</h2>
-      <label class="kin-lbl" for="ftRoot">اختر الجد لعرض شجرة فرعه:</label>
+      <label class="kin-lbl" for="ftRoot">١) اختر الجد الرئيسي:</label>
       <select id="ftRoot"></select>
+      <label class="kin-lbl" for="ftSub" style="margin-top:6px">٢) ثم اختر الفرع الأدنى (اختياري):</label>
+      <select id="ftSub"></select>
       <div class="ftree-crumb" id="ftCrumb"></div>
       <div class="ftree-legend">
         <span><i></i> حيّ</span><span><i class="d"></i> متوفى (رحمه الله)</span><span><i class="u"></i> قراءة من الصورة تحتاج تأكيدك</span>
@@ -623,20 +625,44 @@
   const ftRoot = document.getElementById('ftRoot'), ftTree = document.getElementById('ftTree'), ftCrumb = document.getElementById('ftCrumb');
   function childrenOf(id){ return people.filter(function(p){ return p.father === id; }); }
   function subtreeIds(id){ const out=[id]; childrenOf(id).forEach(function(c){ subtreeIds(c.id).forEach(function(x){ out.push(x); }); }); return out; }
+  const ftSub = document.getElementById('ftSub');
+  const MAIN_IDS = ['root','sul','fah','sal','amm','snd','aaz','abd'];
+  function mainOf(id){ let c = id, guard = 0; while(c && guard++ < 60){ if(MAIN_IDS.indexOf(c) >= 0) return c; c = byId[c] ? byId[c].father : null; } return 'root'; }
+  function curRoot(){ return (ftSub.value && byId[ftSub.value]) ? ftSub.value : (ftRoot.value || 'snd'); }
   function populateRoots(){
-    const keep = ftRoot.value || 'mhn';
+    const keepMain = ftRoot.value || 'snd', keepSub = ftSub.value;
     ftRoot.innerHTML = '';
-    people.forEach(function(p){
-      const o = document.createElement('option'); o.value = p.id; o.textContent = plabel(p); ftRoot.appendChild(o);
-    });
-    ftRoot.value = byId[keep] ? keep : 'mhn';
+    MAIN_IDS.forEach(function(id){ const p = byId[id]; if(!p) return;
+      const o = document.createElement('option'); o.value = id;
+      o.textContent = id === 'root' ? 'كل العائلة — ' + p.name : (p.name + (p.dead ? ' (رحمه الله)' : '') + ' — ' + subtreeIds(id).length + ' مسجّل');
+      ftRoot.appendChild(o); });
+    ftRoot.value = byId[keepMain] ? keepMain : 'snd';
+    populateSub(keepSub);
   }
+  function populateSub(keep){
+    ftSub.innerHTML = '';
+    const m = ftRoot.value;
+    const o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'الفرع كاملاً'; ftSub.appendChild(o0);
+    (function walk(id, depth){
+      childrenOf(id).forEach(function(c){
+        if(childrenOf(c.id).length){
+          const o = document.createElement('option'); o.value = c.id;
+          o.textContent = new Array(depth + 1).join('\u2003') + '↳ ' + c.name + ' بن ' + byId[id].name + ' (' + childrenOf(c.id).length + ')';
+          ftSub.appendChild(o); walk(c.id, depth + 1);
+        }
+      });
+    })(m, 0);
+    ftSub.value = (keep && byId[keep] && mainOf(keep) === m) ? keep : '';
+    if(ftSub.value !== (keep || '')) ftSub.value = '';
+  }
+  function setFtRoot(id){ ftRoot.value = mainOf(id); populateSub(id === ftRoot.value ? '' : id); renderFamilyTree(); }
   function focusSingle(id){
     const p = byId[id]; if(!p) return;
     if(p.fx != null){ showOnMap([id]); setBanner('<b>' + esc(plabel(p)) + '</b>' + (p.dead ? ' (رحمه الله)' : '')); afterShow(); }
     else { setBanner('<b>' + esc(plabel(p)) + '</b><br><small>لا موقع له على الخريطة</small>'); }
   }
-  function buildLi(p){
+  function buildLi(p, depth){
+    depth = depth || 0;
     const li = document.createElement('li');
     const ch = childrenOf(p.id);
     const b = document.createElement('button'); b.type = 'button';
@@ -647,21 +673,28 @@
       document.querySelectorAll('.fnode.sel').forEach(function(x){ x.classList.remove('sel'); });
       b.classList.add('sel'); focusSingle(p.id);
     });
-    li.appendChild(b);
-    if(ch.length){ const ul = document.createElement('ul'); ch.forEach(function(c){ ul.appendChild(buildLi(c)); }); li.appendChild(ul); }
+    if(ch.length){
+      const tg = document.createElement('button'); tg.type = 'button'; tg.className = 'ftg'; tg.style.cssText = 'border:0;background:none;cursor:pointer;font-size:14px;padding:0 4px;color:#7a4b12';
+      const ul = document.createElement('ul'); ch.forEach(function(c){ ul.appendChild(buildLi(c, depth + 1)); });
+      let open = depth < 1;
+      const apply = function(){ ul.style.display = open ? '' : 'none'; tg.textContent = open ? '▾' : '◂'; };
+      tg.addEventListener('click', function(e){ e.stopPropagation(); open = !open; apply(); }); apply();
+      li.appendChild(tg); li.appendChild(b); li.appendChild(ul);
+    } else { li.appendChild(b); }
     return li;
   }
   function renderFamilyTree(){
-    const rid = ftRoot.value || 'mhn'; const root = byId[rid];
+    const rid = curRoot(); const root = byId[rid];
     ftTree.innerHTML = ''; if(!root) return;
     const crumb = ancestors(rid).reverse().map(function(id){ return byId[id].name; }).join(' ← ');
     const n = subtreeIds(rid).length;
     ftCrumb.innerHTML = 'النسب: <b>' + esc(crumb) + '</b> — أفراد الفرع المسجّلون: <b>' + n + '</b>';
-    const ul = document.createElement('ul'); ul.className = 'ftree'; ul.appendChild(buildLi(root)); ftTree.appendChild(ul);
+    const ul = document.createElement('ul'); ul.className = 'ftree'; ul.appendChild(buildLi(root, 0)); ftTree.appendChild(ul);
   }
-  ftRoot.addEventListener('change', renderFamilyTree);
+  ftRoot.addEventListener('change', function(){ populateSub(''); renderFamilyTree(); });
+  ftSub.addEventListener('change', renderFamilyTree);
   document.getElementById('ftShowMap').addEventListener('click', function(){
-    const rid = ftRoot.value || 'mhn'; const ids = subtreeIds(rid);
+    const rid = curRoot(); const ids = subtreeIds(rid);
     showOnMap(ids); setBanner('فرع <b>' + esc(byId[rid].name) + '</b>: ' + ids.length + ' شخص'); afterShow();
   });
   function renderExtraList(){
@@ -797,11 +830,11 @@
     const a = kinA.value;
     if(!a){ kinResult.innerHTML = '<div class="kin-card">اختر الشخص الأول.</div>'; return; }
     if(!childrenOf(a).length){ kinResult.innerHTML = '<div class="kin-card">لا يوجد له نسل مسجّل لعرض شجرة له.</div>'; return; }
-    ftRoot.value = a; renderFamilyTree();
+    setFtRoot(a);
     document.getElementById('treePanel').scrollIntoView({behavior:'smooth', block:'start'});
   });
   document.getElementById('goMhn').addEventListener('click', function(){
-    ftRoot.value = 'mhn'; renderFamilyTree();
+    setFtRoot('mhn');
     const ids = subtreeIds('mhn'); showOnMap(ids); setBanner('فرع <b>مهنا</b>: ' + ids.length + ' شخص');
     document.getElementById('treePanel').scrollIntoView({behavior:'smooth', block:'start'});
   });
